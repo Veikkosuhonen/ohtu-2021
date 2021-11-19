@@ -20,7 +20,7 @@ Login Page Should Be Open
     Title Should Be  Login
 
 Main Page Should Be Open
-    Title Should Be  Ohtu Application main page
+    Title Should Be  Ohtu Application main page shell
 
 Register Page Should Be Open
     Title Should Be  Register
