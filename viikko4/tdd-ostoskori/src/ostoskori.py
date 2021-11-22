@@ -11,6 +11,8 @@ class Ostoskori:
         return len(self.ostokset)
 
     def hinta(self):
+        if self.ostokset:
+            return self.ostokset[0].hinta() * 2
         return 0
         # kertoo korissa olevien ostosten yhteenlasketun hinnan
 
