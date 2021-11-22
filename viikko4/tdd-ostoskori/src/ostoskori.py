@@ -4,7 +4,6 @@ from ostos import Ostos
 class Ostoskori:
     def __init__(self):
         self._ostokset = []
-        pass
         # ostoskori tallettaa Ostos-oliota, yhden per korissa oleva Tuote
 
     def tavaroita_korissa(self):
@@ -18,7 +17,9 @@ class Ostoskori:
 
     def lisaa_tuote(self, lisattava: Tuote):
         ostos = Ostos(lisattava)
-        self._ostokset.append(ostos)
+        aikaisemmat_samat_ostokset = list(filter(lambda o: o.tuote.nimi == ostos.tuote.nimi, self._ostokset))
+        if not aikaisemmat_samat_ostokset:
+            self._ostokset.append(ostos)
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
