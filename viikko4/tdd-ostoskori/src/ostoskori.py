@@ -7,7 +7,9 @@ class Ostoskori:
         # ostoskori tallettaa Ostos-oliota, yhden per korissa oleva Tuote
 
     def tavaroita_korissa(self):
-        return len(self._ostokset)
+        return sum(
+            [ostos.lukumaara() for ostos in self._ostokset.values()]
+        )
 
     def hinta(self):
         return sum(
