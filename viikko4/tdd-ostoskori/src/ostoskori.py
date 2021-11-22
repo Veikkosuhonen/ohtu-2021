@@ -20,6 +20,8 @@ class Ostoskori:
         aikaisemmat_samat_ostokset = list(filter(lambda o: o.tuote.nimi == ostos.tuote.nimi, self._ostokset))
         if not aikaisemmat_samat_ostokset:
             self._ostokset.append(ostos)
+        else:
+            aikaisemmat_samat_ostokset[0].muuta_lukumaaraa(1)
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
