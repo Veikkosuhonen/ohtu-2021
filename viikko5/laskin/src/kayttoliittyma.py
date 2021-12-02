@@ -1,18 +1,18 @@
-from enum import Enum
 from tkinter import ttk, constants, StringVar
-
-
-class Komento(Enum):
-    SUMMA = 1
-    EROTUS = 2
-    NOLLAUS = 3
-    KUMOA = 4
-
 
 class Kayttoliittyma:
     def __init__(self, sovellus, root):
         self._sovellus = sovellus
         self._root = root
+        self._komennot = {
+            Komento.SUMMA: Summa(sovellus, self._lue_syote),
+            Komento.EROTUS: Erotus(sovellus, self._lue_syote),
+            Komento.NOLLAUS: Nollaa(sovellus),
+            Komento.KUMOA: Kumoa(sovellus)
+        }
+    
+    def _lue_syote(self):
+        return self._syote_kentta.get()
 
     def kaynnista(self):
         self._tulos_var = StringVar()
@@ -55,21 +55,8 @@ class Kayttoliittyma:
         self._kumoa_painike.grid(row=2, column=3)
 
     def _suorita_komento(self, komento):
-        arvo = 0
-
-        try:
-            arvo = int(self._syote_kentta.get())
-        except Exception:
-            pass
-
-        if komento == Komento.SUMMA:
-            self._sovellus.plus(arvo)
-        elif komento == Komento.EROTUS:
-            self._sovellus.miinus(arvo)
-        elif komento == Komento.NOLLAUS:
-            self._sovellus.nollaa()
-        elif komento == Komento.KUMOA:
-            self._sovellus.kumoa()
+        komento_olio = self._komennot[komento]
+        komento_olio.suorita()
 
         self._kumoa_painike["state"] = constants.NORMAL
 
@@ -80,11 +67,55 @@ class Kayttoliittyma:
 
         self._syote_kentta.delete(0, constants.END)
         self._tulos_var.set(self._sovellus.tulos)
-    
-class Summa():
-    def __init__(self) -> None:
-        pass
+
+
+
+class Komento:
+    SUMMA = 1
+    EROTUS = 2
+    NOLLAUS = 3
+    KUMOA = 4
+
+    def __init__(self, sovelluslogiikka) -> None:
+        self.sovelluslogiikka = sovelluslogiikka
 
     def suorita(self):
-        pass
-    
+        self.sovelluslogiikka.tallenna()
+
+
+   
+class Summa(Komento):
+    def __init__(self, sovelluslogiikka, lue_syote) -> None:
+        super().__init__(sovelluslogiikka)
+        self.lue_syote = lue_syote
+
+    def suorita(self):
+        super().suorita()
+        self.sovelluslogiikka.plus(int(self.lue_syote()))
+
+
+class Erotus(Komento):
+    def __init__(self, sovelluslogiikka, lue_syote) -> None:
+        super().__init__(sovelluslogiikka)
+        self.lue_syote = lue_syote
+
+    def suorita(self):
+        super().suorita()
+        self.sovelluslogiikka.miinus(int(self.lue_syote()))
+
+
+class Nollaa(Komento):
+    def __init__(self, sovelluslogiikka) -> None:
+        super().__init__(sovelluslogiikka)
+
+    def suorita(self):
+        super().suorita()
+        self.sovelluslogiikka.nollaa()
+
+
+class Kumoa():
+    def __init__(self, sovelluslogiikka) -> None:
+        self.sovelluslogiikka = sovelluslogiikka
+
+    def suorita(self):
+        self.sovelluslogiikka.kumoa()
