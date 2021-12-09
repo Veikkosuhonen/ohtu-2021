@@ -30,12 +30,11 @@ class HasAtLeast(Matcher):
 
     def matches(self, player):
         player_value = getattr(player, self._attr)
-
         return player_value >= self._value
 
 class All(Matcher):
-    def __init__(self, matcher) -> None:
-        self._matcher = matcher
+    def __init__(self) -> None:
+        pass
     
     def matches(self, player) -> bool:
         return True
