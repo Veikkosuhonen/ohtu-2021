@@ -4,22 +4,23 @@ from tekoaly import Tekoaly
 from tekoaly_parannettu import TekoalyParannettu
 
 class PeliTehdas:
-    def __init__(self) -> None:
-        pass
 
-    def kaksinpeli(self) -> KPS:
+    @staticmethod
+    def kaksinpeli() -> KPS:
         return KPS(
             Ihmispelaaja("pelaaja1"),
             Ihmispelaaja("pelaaja2")
         )
     
-    def yksinpeli(self) -> KPS:
+    @staticmethod
+    def yksinpeli() -> KPS:
         return KPS(
             Ihmispelaaja("pelaaja1"),
             Tekoaly()
         )
     
-    def yksinpeli_vaikea(self) -> KPS:
+    @staticmethod
+    def yksinpeli_vaikea() -> KPS:
         return KPS(
             Ihmispelaaja("pelaaja1"),
             TekoalyParannettu()

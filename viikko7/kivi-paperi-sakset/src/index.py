@@ -1,7 +1,6 @@
 from pelitehdas import PeliTehdas
 
 def main():
-    pelitehdas = PeliTehdas()
 
     while True:
         print("Valitse pelataanko"
@@ -14,11 +13,11 @@ def main():
         vastaus = input()
 
         if vastaus.endswith("a"):
-            pelitehdas.kaksinpeli().pelaa()
+            PeliTehdas.kaksinpeli().pelaa()
         elif vastaus.endswith("b"):
-            pelitehdas.yksinpeli().pelaa()
+            PeliTehdas.yksinpeli().pelaa()
         elif vastaus.endswith("c"):
-            pelitehdas.yksinpeli_vaikea().pelaa()
+            PeliTehdas.yksinpeli_vaikea().pelaa()
         else:
             break
 
